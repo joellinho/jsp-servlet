@@ -1,0 +1,73 @@
+Variables CGI
+Los lectores que provengan de los scripts CGI tendrán claro lo que son las variables CGI o variables
+de entorno. La información que ofrecen estas variables de entorno también está disponible a través de
+los servlets. En este capítulo además de mostrar la correspondencia entre las variables CGI y los
+métodos ofrecidos por los servlets, vamos a comentar las variables CGI para aquellos lectores que no
+provengan del entorno de los scripts CGI.
+Las variables de entorno de los scripts CGI es un conjunto de variables que contiene una colección
+variada de información. Algunas de estas variables se basan en la línea de petición HTTP o en sus
+cabeceras de petición, otras se derivan del propio socket utilizado para realizar la conexión o del
+servidor Web.
+Los servlets ofrecen mecanismos mucho más sencillos para obtener esta información a través de los
+interfaces tales como ServletRequest y HttpServletRequest.
+© Grupo EIDOS 4. Servlets: el interfaz HttpServletRequest
+73
+A continuación vamos a ir comentando cada una de las variables de entorno de los scripts CGI y su
+correspondencia con los servlets.
+• AUTH_TYPE: se corresponde con al información contenida en la cabecera Authorization, su
+equivalente en un servlet es request.getAuthType(), siendo request un objeto
+HttpServletRequest.
+• CONTENT_LENGTH: sólo disponible para peticiones de tipo POST, esta variable indica el
+número de bytes de los datos enviados, se corresponde con el valor de la cabecera Content-
+Length. El equivalente en un servlet es request.getContentLength().
+• CONTENT_TYPE: devuelve el tipo MIME de los datos enviados. Su correspondencia en un
+servlet es la sentencia request.getContentType().
+• DOCUMENT_ROOT: esta variable especifica el directorio real que se corresponde con la
+URL http://servidor/aplicacion. En este caso el método correspondiente del servlet no lo
+ofrece el interfaz HttpServletRequest ni el interfaz ServletRequest, sino que lo ofrece el
+interfaz ServletContext. Un objeto ServletContext lo obtenemos mediante el método
+getServletContext() de la clase GenericServlet, de la que hereda la clase HttpServlet.
+El interfaz ServletContext ofrece una serie de métodos que permiten que el servlet se
+comunique con el contenedor en el que se ejecuta. Así por ejemplo nos ofrece el método
+getRealPath(), este método recibe como parámetro una ruta virtual y nos devuelve la ruta
+física correspondiente.
+Así el equivalente en un servlet, a la variable de entorno CGI que nos ocupa, sería la sentencia
+getServletContex().getRealPath(“/”). Al indicar la barra (“/”) este método nos devuelve la ruta
+física de la URL que se corresponde con la aplicación actual.
+• HTTP_XXX_YYY: existen un grupo de variables de entorno del tipo HTTP_NOMBRE_
+CABECERA, los equivalentes en los servlets ya los vimos un apartado anterior.
+• PATH_INFO: esta variable contiene cualquier información relativa a rutas que se añade al
+final de la URL que se corresponde con un servlet, pero antes de los datos de consulta
+(QueryString). Así en la URL http://servidor/servlet/UnServlet/info/ruta?id=2, el contenido de
+la variable PATH_INFO sería /info/ruta. El equivalente a esta variable dentro de un servlet es
+request.getPathInfo().
+• PATH_TRANSLATED: ofrece la ruta de una URL mapeada a su ruta física en el servidor. El
+equivalente en un servlet sería la sentencia request.getPathTranslated().
+• QUERY_STRING: esta otra variable, llamada cadena de consulta, contiene la información
+que se adjunta a una petición GET y que se encuentra codificada según la codificación URL.
+En el siguiente apartado veremos como tratar esta información que se añade en forma de
+parámetros a la URL de la petición. La equivalencia en un servlet es request.getQueryString().
+• REMOTE_ADDR: representa la dirección IP del cliente que realizó la petición. Se
+corresponde con request.getRemoteAddr().
+• REMOTE_HOST: contiene el nombre completo del dominio del cliente que realizó la
+petición. Su correspondencia en un servlet sería request.getRemoteHost().
+Tecnologías de servidor con Java: Servlets, JavaBeans, JSP © Grupo EIDOS
+74
+• REMOTE_USER: contiene el nombre del usuario que se ha autenticado con el servidor.
+Tenemos acceso a este valor dentro de un servlet mediante la sentencia request.getRemote-
+User().
+• REQUEST_METHOD: ofrece el tipo de método de petición HTTP que se ha utilizado para
+realizar la petición correspondiente. Su equivalente en un servlet es la sentencia
+request.getMethod().
+• SCRIPT_NAME: especifica el camino a un servlet, relativo al directorio raíz del servidor.
+Esta información la obtenemos en un servlet mediante la sentencia request.getServletPath().
+• SERVER_NAME: esta variable de entorno contiene el nombre de la máquina del servidor. Se
+corresponde con la sentencia request.getServerName().
+• SERVER_PORT: esta variable almacena el puerto en el que se encuentra escuchando el
+servidor. La equivalencia en un servlet es request.getServerPort().
+• SERVER_PROTOCOL: indica el protocolo que se encuentra en la petición realizada. Está
+información se obtiene en un servlet mediante la sentencia request.getProtocol().
+• SERVER_SOFTWARE: esta variable ofrece información que permite identificar el software
+que implementa el servidor Web. El acceso a esta información en un servlet se realiza a través
+del método getServerInfo() del interfaz ServletContext. Por lo tanto esta variable de entorno se
+corresponde con la sentencia getServletContext().getServerInfo().

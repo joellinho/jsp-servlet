@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page 
+        contentType="text/html" pageEncoding="UTF-8" />
+  <jsp:declaration>
+  private int  contador=1;
+  </jsp:declaration>  
+  
+<html >
+
+<jsp:body>
+<jsp:scriptlet>
+String nombreapp = request.getContextPath();
+</jsp:scriptlet>
+<jsp:text> jaludos desde documentos </jsp:text>
+<jsp:expression>nombreapp</jsp:expression>
+</jsp:body>
+<BR />
+<jsp:expression>contador++</jsp:expression>
+</html>
+</jsp:root>
+<!-- al igual que <> se establecen scriptles y las <%=%> expresiones solo que se daclaraliterlamente jsp: -->

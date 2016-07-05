@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page 
+        contentType="text/html" pageEncoding="UTF-8" />
+	<html>
+<head>
+<title>Insert title here</title>
+</head>
+<jsp:body>
+<jsp:useBean id="rec1" class="beans.Rectangulo">
+<c:set target="${rec1}" property="base" value="2" />
+<c:set target="${rec1}" property="altura" value="4" />
+</jsp:useBean>
+<jsp:useBean id="rec2" class="beans.Rectangulo">
+<c:set target="${rec2}" property="base" value="3" />
+<c:set target="${rec2}" property="altura" value="5" />
+</jsp:useBean>
+<jsp:useBean id="listarectangulos" class="beans.ListaRectangulos"  >
+<c:set target="${listarectangulos}" property="rectangulo" value="${rec1}"/>
+<c:set target="${listarectangulos}" property="rectangulo" value="${rec2}"/>
+</jsp:useBean>
+
+<ul>
+<c:forEach varStatus="status" var="rectangulo" items="${listarectangulos.lista}">
+	<li>
+	${status.count}
+	base : ${rectangulo.base}
+	altura: ${rectangulo.altura}
+	
+	
+	</li>
+</c:forEach>
+</ul>
+<a href="index.jsp">regresar al inicio</a>
+</jsp:body>
+	</html>
+</jsp:root>
